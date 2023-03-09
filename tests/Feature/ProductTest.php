@@ -48,6 +48,7 @@ class ProductTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'data' => ['*' => $this->jsonProduct],
+            'success'
         ]);
         $response->assertJsonFragment([
             'external_id' => '2',
