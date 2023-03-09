@@ -16,7 +16,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of exception types with their corresponding custom log levels.
      *
-     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     * @var array<class-string<Throwable>, \Psr\Log\LogLevel::*>
      */
     protected $levels = [
         //
@@ -25,7 +25,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<\Throwable>>
+     * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
         //
@@ -54,13 +54,14 @@ class Handler extends ExceptionHandler
 
         $this->renderable(function (Throwable $e, $request) {
             if ($request->wantsJson()) {
-                $this->handleApiException($request, $e);
+                return $this->handleApiException($request, $e);
             }
+            return parent::render($request, $e);
         });
 
     }
 
-    private function handleApiException(Request $request, Throwable|AuthenticationException|ValidationException $e): void
+    private function handleApiException(Request $request, Throwable|AuthenticationException|ValidationException $e): JsonResponse
     {
         $exception = $this->prepareException($e);
 
@@ -76,10 +77,10 @@ class Handler extends ExceptionHandler
             $exception = $this->convertValidationExceptionToResponse($e, $request);
         }
 
-        $this->customApiResponse($exception);
+        return $this->customApiResponse($exception);
     }
 
-    private function customApiResponse(Throwable|JsonResponse|Response $e): void
+    private function customApiResponse(Throwable|JsonResponse|Response $e): JsonResponse
     {
         if (method_exists($e, 'getStatusCode')) {
             $statusCode = $e->getStatusCode();
@@ -116,6 +117,6 @@ class Handler extends ExceptionHandler
 
         $response['success'] = false;
 
-        response()->json($response, $statusCode);
+        return response()->json($response, $statusCode);
     }
 }
