@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "_ycode_id": "167701234205463f52d760d341",
+            "ID": "1",
+            "Name": "T-Shirt",
+            "Slug": "t-shirt-black",
+            "Created date": "2023-02-21 20:45:42",
+            "Updated date": "2023-02-22 03:13:15",
+            "Created by": null,
+            "Updated by": null,
+            "Color": "Black",
+            "Price": "32",
+            "Image": "https://assets.ycodeapp.com/assets/app15755/images/BTtG3IAkhz4pP9NHd1Ava1x5cgAbM05mnzaSrGCJ.jpg"
+        },
+        {
+            "_ycode_id": "167701242332763f52dc74fed1",
+            "ID": "2",
+            "Name": "T-Shirt",
+            "Slug": "t-shirt-gray",
+            "Created date": "2023-02-21 20:47:03",
+            "Updated date": "2023-02-21 20:47:03",
+            "Created by": null,
+            "Updated by": null,
+            "Color": "Gray",
+            "Price": "32",
+            "Image": "https://assets.ycodeapp.com/assets/app15755/images/qiOqsPKNK0mvjTXIpANMFTs8pp9aIGVmhzkOvJmH.jpg"
+        }
+    ],
+    "pagination": {
+        "per_page": 100,
+        "limit": null,
+        "current_page": 1,
+        "total": 2
+    }
+}
