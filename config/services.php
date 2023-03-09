@@ -31,4 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'ycode' => [
+        'base_url' => env('YCODE_BASE_URL', 'https://app.ycode.com/api/v1'),
+        'token' => env('YCODE_TOKEN'),
+        'collections' => [
+            'products_id' => env('YCODE_COLLECTIONS_PRODUCTS_ID')
+        ]
+    ]
+
 ];
