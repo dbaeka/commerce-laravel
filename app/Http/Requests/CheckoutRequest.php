@@ -38,7 +38,11 @@ class CheckoutRequest extends FormRequest
             'shipping.phone' => 'required|string|min:6|max:25',
             'order' => 'required|array',
             'order.name' => 'required|string|min:3|max:100',
-            'order.items' => 'required',
+            'order.items' => 'required|array|min:1',
+            'order.items.*.name' => 'required|string',
+            'order.items.*.slug' => 'required|string',
+            'order.items.*.product_id' => 'required|string',
+            'order.items.*.quantity' => 'required|integer|gt:0',
             'order.shipping_cost' => 'required|numeric|min:0',
             'order.sub_total' => 'required|numeric|min:0',
             'order.total' => 'required|numeric|gt:0'

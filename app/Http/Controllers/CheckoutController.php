@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Services\CheckoutServiceInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @class CheckoutController
@@ -21,8 +23,14 @@ class CheckoutController extends Controller
         return view('checkout.index');
     }
 
-    public function store(CheckoutRequest $request)
+    public function store(CheckoutRequest $request, CheckoutServiceInterface $service): JsonResponse
     {
 
+        $order = $service->createCheckout($request->all());
+
+        return response()->json([
+            "order" => $order,
+            "success" => true,
+        ]);
     }
 }
