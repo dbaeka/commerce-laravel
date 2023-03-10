@@ -1,0 +1,22 @@
+{
+    "_ycode_id": "1678386726420640a262666931",
+    "ID": "3",
+    "Name": "123",
+    "Customer name": "Ted Fox",
+    "Slug": "123",
+    "Created date": "2023-03-09T18:32:06+00:00",
+    "Updated date": "2023-03-09T18:32:06+00:00",
+    "Email": "ted@example.com",
+    "Created by": null,
+    "Phone": "(917) 500-200",
+    "Updated by": null,
+    "Address line 1": "500 w 20 St",
+    "Address line 2": "Apt 123",
+    "City": "New York",
+    "Country": "United States",
+    "State": "NY",
+    "ZIP": "10011",
+    "Total": "69",
+    "Subtotal": "64",
+    "Shipping": "5"
+}

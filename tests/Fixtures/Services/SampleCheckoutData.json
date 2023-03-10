@@ -1,0 +1,30 @@
+{
+    "contact": {
+        "email": "abc@gmail.com"
+    },
+    "shipping": {
+        "first_name": "Delmwin",
+        "last_name": "Baeka",
+        "address": "A2C Abc",
+        "apartment_suite": "",
+        "city": "Accra",
+        "country": "Ghana",
+        "state_province": "Accra",
+        "postal_code": "233",
+        "phone": "(050) 369-5535"
+    },
+    "order": {
+        "name": "{{$guid}}",
+        "items": [
+            {
+                "product_id": "167701234205463f52d760d341",
+                "name": "T-Shirt",
+                "slug": "t-shirt-black",
+                "quantity": 20
+            }
+        ],
+        "shipping_cost": "5",
+        "sub_total": "20",
+        "total": "100"
+    }
+}

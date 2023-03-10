@@ -2,23 +2,29 @@
 
 namespace Tests\Feature;
 
+use App\Services\CheckoutServiceInterface;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 class CheckoutTest extends TestCase
 {
-
-    public function test_create_checkout(): void
+    public function test_successfully_create_checkout(): void
     {
-        $params = [
-
-        ];
+        $params = file_get_contents(base_path('tests/Fixtures/Services/SampleCheckoutData.json'));
+        $params = json_decode($params, true);
+        $this->mock(CheckoutServiceInterface::class, function (MockInterface $mock) {
+            $mock->shouldReceive('createCheckout')
+                ->once()
+                ->andReturn("sample_order_id");
+        });
 
         $response = $this->postJson('/create-checkout', $params);
 
         $response->assertStatus(200);
     }
 
-    public function test_error_create_checkout_when_wrong_parameter()
+
+    public function test_fails_create_checkout_when_wrong_parameter()
     {
         $response = $this->postJson('/create-checkout');
 
@@ -46,7 +52,43 @@ class CheckoutTest extends TestCase
 
         $response->assertJsonStructure([
             'message',
-            'errors'
+            'errors',
+            'success'
+        ]);
+
+        $response->assertJsonFragment([
+            "success" => false
+        ]);
+
+        $response->assertJsonValidationErrors($error_keys);
+    }
+
+    public function test_fails_create_checkout_when_order_items_invalid()
+    {
+        $params = file_get_contents(base_path('tests/Fixtures/Services/SampleCheckoutData.json'));
+        $params = json_decode($params, true);
+
+        $params["order"]["items"] = [[]];
+
+        $response = $this->postJson('/create-checkout', $params);
+
+        $error_keys = [
+            "order.items.0.name",
+            "order.items.0.slug",
+            "order.items.0.product_id",
+            "order.items.0.quantity"
+        ];
+
+        $response->assertStatus(422);
+
+        $response->assertJsonStructure([
+            'message',
+            'errors',
+            'success'
+        ]);
+
+        $response->assertJsonFragment([
+            "success" => false
         ]);
 
         $response->assertJsonValidationErrors($error_keys);
