@@ -3,14 +3,12 @@
 namespace Tests\Unit;
 
 use App\DTO\ProductDTO;
-use App\Exceptions\MissingEnvVariableException;
 use App\Services\ProductServiceInterface;
 use Illuminate\Support\Facades\Http;
-use Tests\TestCase;
 
-class ProductServiceTest extends TestCase
+class ProductServiceTest extends YcodeServiceTestCase
 {
-    private string $domain;
+    protected string $collection_id = "products_id";
 
     public function test_it_gets_products_returns_product_dto()
     {
@@ -42,52 +40,19 @@ class ProductServiceTest extends TestCase
 
     public function test_it_cant_get_products_if_base_url_not_provided()
     {
-        config([
-            'services.ycode.base_url' => null
-        ]);
-
-        $this->expectException(MissingEnvVariableException::class);
-
+        $this->setup_base_url_not_provided();
         app(ProductServiceInterface::class)->getProducts();
     }
 
     public function test_it_cant_get_products_if_token_not_provided()
     {
-        config([
-            'services.ycode.token' => null
-        ]);
-
-        $this->expectException(MissingEnvVariableException::class);
-
+        $this->setup_token_not_provided();
         app(ProductServiceInterface::class)->getProducts();
     }
 
     public function test_it_cant_get_products_if_products_id_not_provided()
     {
-        config([
-            'services.ycode.collections.products_id' => null
-        ]);
-
-        $this->expectException(MissingEnvVariableException::class);
-
+        $this->setup_collection_id_not_provided();
         app(ProductServiceInterface::class)->getProducts();
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->setCorrectConfig();
-    }
-
-    private function setCorrectConfig(): void
-    {
-        $base_url = config('services.ycode.base_url');
-        config([
-            'services.ycode.token' => 'test',
-            'services.ycode.base_url' => $base_url,
-            'services.ycode.collections.products_id' => 'test'
-        ]);
-
-        $this->domain = parse_url($base_url, PHP_URL_HOST);
     }
 }
