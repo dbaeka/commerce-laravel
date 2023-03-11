@@ -35,7 +35,7 @@ class CheckoutRequest extends FormRequest
             'shipping.country' => 'required|string|min:2|max:60',
             'shipping.state_province' => 'required|string|min:2|max:150',
             'shipping.postal_code' => 'required|string|max:40',
-            'shipping.phone' => 'required|string|min:6|max:25',
+            'shipping.phone' => 'required|string|min:6|max:25|regex:/^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/i',
             'order' => 'required|array',
             'order.name' => 'required|string|min:3|max:100',
             'order.items' => 'required|array|min:1',
