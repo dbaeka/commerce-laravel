@@ -1,16 +1,18 @@
+import {createApp} from 'vue'
+import store from "./stores"
+import core from "./core"
+import pages from "./views/pages"
+import components from "./components";
+
 require('./bootstrap')
-
-import { createApp } from 'vue'
-import { createStore } from 'vuex'
-
-import Checkout from './components/Checkout'
-
-const store = createStore({})
 
 const app = createApp({})
 
 app.use(store)
 
-app.component('checkout', Checkout)
+core(app)
 
+pages(app)
+
+components(app)
 app.mount('#app')
