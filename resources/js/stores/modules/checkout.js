@@ -8,7 +8,9 @@ const toast = useToast()
 const getInitialState = () => ({
     items: {},
     sub_total: 0,
-    shipping: 0,
+    shipping: 5,
+    currency: 'USD',
+    maxQuantity: 8,
     formErrors: {},
     form: {
         email: "",
@@ -41,8 +43,21 @@ const checkout = {
         RESET_STATE: (state) => {
             Object.assign(state, getInitialState())
         },
+        SET_DEFAULT_CONFIG: (state, payload = []) => {
+            state.currency = payload.base_currency
+            state.maxQuantity = payload.max_quantity
+            state.shipping = payload.shipping_cost
+        },
     },
     actions: {
+        async getDefaultConfig({commit}) {
+            await CheckoutService.getDefaultConfig()
+                .then(response => {
+                    commit('SET_DEFAULT_CONFIG', response.data)
+                }).catch(() => {
+                    toast.error("Failed to getting config")
+                })
+        },
         async submitForm({commit, state}) {
             let order_data = {
                 "items": state.items,
@@ -77,9 +92,11 @@ const checkout = {
     getters: {
         getFormErrors: (state) => state.formErrors,
         getForm: (state) => state.form,
-        shippingCost: (state) => formatInCurrency(state.shipping),
-        totalCost: (state) => formatInCurrency(state.sub_total + state.shipping),
-        subTotalCost: (state) => formatInCurrency(state.sub_total),
+        shippingCost: (state) => formatInCurrency(state.shipping, state.currency),
+        totalCost: (state) => formatInCurrency(state.sub_total + state.shipping, state.currency),
+        subTotalCost: (state) => formatInCurrency(state.sub_total, state.currency),
+        getBaseCurrency: (state) => state.currency,
+        getMaxQuantity: (state) => state.maxQuantity,
         orderItems: (state) => state.items,
         getItemQuantity: (state) => (id) => {
             return state.items[id] ? state.items[id].quantity : 0

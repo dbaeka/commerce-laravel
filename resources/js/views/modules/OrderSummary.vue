@@ -10,8 +10,9 @@
                     <OrderItem :title="product.name"
                                :image-url="product.image_url"
                                :image-alt="product.name + ' ' + product.color"
-                               :price="formatInCurrency(product.price)"
+                               :price="formatInCurrency(product.price, baseCurrency)"
                                :sub-title="product.color"
+                               :max-quantity="maxQuantity"
                                :current-quantity="getItemQuantity(product.external_id)"
                                @update:current-quantity="updateItemQuantity(product, $event)"
                     >
@@ -60,6 +61,8 @@ const shipping = computed(() => store.getters["checkout/shippingCost"]);
 
 const validOrderItems = computed(() => store.getters["checkout/validOrderItems"]);
 const validForm = computed(() => store.getters["checkout/validForm"])
+const baseCurrency = computed(() => store.getters["checkout/getBaseCurrency"])
+const maxQuantity = computed(() => store.getters["checkout/getMaxQuantity"])
 
 const getItemQuantity = (id) => {
     return store.getters["checkout/getItemQuantity"](id)
@@ -83,6 +86,7 @@ const listProducts = async () => {
 };
 
 onMounted(async () => {
+    await store.dispatch("checkout/getDefaultConfig");
     await listProducts();
 })
 
