@@ -1,5 +1,8 @@
 <?php
 
+$appUrl = config('app.url');
+$appUrl = $appUrl ? parse_url($appUrl, PHP_URL_HOST) : '';
+
 return [
 
     /*
@@ -19,7 +22,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [$appUrl],
 
     'allowed_origins_patterns' => [],
 
