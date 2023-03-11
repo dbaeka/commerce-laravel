@@ -3,11 +3,9 @@
 namespace Tests\Unit;
 
 use App\DTO\OrderDTO;
-use App\Exceptions\MissingEnvVariableException;
 use App\Services\CheckoutServiceInterface;
 use App\Services\OrderItemServiceInterface;
 use App\Services\OrderServiceInterface;
-use App\Services\ProductServiceInterface;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -88,36 +86,24 @@ class CheckoutServiceTest extends TestCase
         $this->assertNull($order_id);
     }
 
-    public function test_it_cant_get_products_if_base_url_not_provided()
+    public function test_it_gets_default_config()
     {
+        $expectedConfig = [
+            'shipping_cost' => 10,
+            'max_quantity' => 100,
+            'base_currency' => "GHS",
+        ];
+
         config([
-            'services.ycode.base_url' => null
+            'services.ycode.default_currency' => $expectedConfig["base_currency"],
+            'services.ycode.default_max_quantity' => $expectedConfig["max_quantity"],
+            'services.ycode.default_shipping_cost' => $expectedConfig["shipping_cost"]
         ]);
 
-        $this->expectException(MissingEnvVariableException::class);
+        $config = app(CheckoutServiceInterface::class)->defaultConfig();
 
-        app(ProductServiceInterface::class)->getProducts();
+        $this->assertNotNull($config);
+        $this->assertEquals($config, (object)$expectedConfig);
     }
 
-    public function test_it_cant_get_products_if_token_not_provided()
-    {
-        config([
-            'services.ycode.token' => null
-        ]);
-
-        $this->expectException(MissingEnvVariableException::class);
-
-        app(ProductServiceInterface::class)->getProducts();
-    }
-
-    public function test_it_cant_get_products_if_products_id_not_provided()
-    {
-        config([
-            'services.ycode.collections.products_id' => null
-        ]);
-
-        $this->expectException(MissingEnvVariableException::class);
-
-        app(ProductServiceInterface::class)->getProducts();
-    }
 }

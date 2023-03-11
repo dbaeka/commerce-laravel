@@ -23,6 +23,31 @@ class CheckoutTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_successfully_gets_default_config(): void
+    {
+        $config = [
+            'shipping_cost' => 10,
+            'max_quantity' => 100,
+            'base_currency' => "GHS",
+        ];
+        $this->mock(CheckoutServiceInterface::class, function (MockInterface $mock) use ($config) {
+            $mock->shouldReceive('defaultConfig')
+                ->once()
+                ->andReturn((object)$config);
+        });
+
+        $response = $this->getJson('/get-default-config');
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => array_keys($config),
+            'success'
+        ]);
+        $response->assertJsonFragment([
+            $config
+        ]);
+    }
+
 
     public function test_fails_create_checkout_when_wrong_parameter()
     {
