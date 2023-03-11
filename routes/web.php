@@ -7,3 +7,5 @@ Route::get('/', [\App\Http\Controllers\CheckoutController::class, 'index']);
 Route::get('/get-products', [\App\Http\Controllers\ProductController::class, 'index']);
 
 Route::post('/create-checkout', [\App\Http\Controllers\CheckoutController::class, 'store']);
+
+Route::get('/get-default-config', [\App\Http\Controllers\CheckoutController::class, 'defaultConfig']);

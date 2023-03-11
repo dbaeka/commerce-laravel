@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Http\Resources\CheckoutConfigResource;
 use App\Services\CheckoutServiceInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -32,5 +33,12 @@ class CheckoutController extends Controller
             "order" => $order,
             "success" => true,
         ]);
+    }
+
+    public function defaultConfig(CheckoutServiceInterface $service): CheckoutConfigResource
+    {
+        $config = $service->defaultConfig();
+
+        return new CheckoutConfigResource($config);
     }
 }

@@ -38,7 +38,10 @@ return [
             'products_id' => env('YCODE_COLLECTIONS_PRODUCTS_ID'),
             'orders_id' => env('YCODE_COLLECTIONS_ORDERS_ID'),
             'order_items_id' => env('YCODE_COLLECTIONS_ORDER_ITEMS_ID')
-        ]
+        ],
+        'default_currency' => env('YCODE_DEFAULT_CURRENCY', 'USD'),
+        'default_max_quantity' => env('YCODE_DEFAULT_MAX_QTY', 8),
+        'default_shipping_cost' => env('YCODE_DEFAULT_SHIPPING_COST', 5)
     ]
 
 ];

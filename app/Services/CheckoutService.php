@@ -23,4 +23,13 @@ class CheckoutService implements CheckoutServiceInterface
         }
         return null;
     }
+
+    public function defaultConfig(): object
+    {
+        return (object)[
+            "max_quantity" => config("services.ycode.default_max_quantity"),
+            "base_currency" => config("services.ycode.default_currency"),
+            "shipping_cost" => config("services.ycode.default_shipping_cost")
+        ];
+    }
 }
