@@ -15,9 +15,12 @@ class CheckoutConfigResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'shipping_cost' => $this->shipping_cost,
-            'max_quantity' => $this->max_quantity,
-            'base_currency' => $this->base_currency,
+            'data' => [
+                'shipping_cost' => $this->shipping_cost,
+                'max_quantity' => $this->max_quantity,
+                'base_currency' => $this->base_currency,
+            ],
+            'success' => true
         ];
     }
 }
