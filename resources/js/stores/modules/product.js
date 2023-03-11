@@ -3,13 +3,13 @@ import {useToast} from "vue-toastification";
 
 const toast = useToast();
 
-const initialState = {
+const getInitialState = () => ({
     products: []
-}
+})
 
 const product = {
     namespaced: true,
-    state: initialState,
+    state: getInitialState(),
     modules: {},
     mutations: {
         SET_PRODUCTS: (state, payload = []) => {

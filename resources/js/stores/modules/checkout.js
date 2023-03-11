@@ -5,7 +5,7 @@ import {useToast} from "vue-toastification";
 
 const toast = useToast()
 
-const initialState = {
+const getInitialState = () => ({
     items: {},
     sub_total: 0,
     shipping: 0,
@@ -22,11 +22,11 @@ const initialState = {
         postal_code: "",
         phone: ""
     }
-}
+})
 
 const checkout = {
     namespaced: true,
-    state: initialState,
+    state: getInitialState(),
     modules: {},
     mutations: {
         UPDATE_ITEMS: (state, payload = []) => {
@@ -39,7 +39,7 @@ const checkout = {
             state.formErrors = payload
         },
         RESET_STATE: (state) => {
-            Object.assign(state, initialState)
+            Object.assign(state, getInitialState())
         },
     },
     actions: {
@@ -52,8 +52,8 @@ const checkout = {
             }
             await CheckoutService.submitOrder(state.form, order_data)
                 .then(() => {
-                    toast.success("Checkout submitted successfully")
                     commit('RESET_STATE')
+                    toast.success("Checkout submitted successfully")
                 }).catch(error => {
                     commit('SET_FORM_ERRORS', FormService.getErrors(error))
                 })
@@ -61,7 +61,7 @@ const checkout = {
         resetFormErrors({commit}) {
             commit('SET_FORM_ERRORS')
         },
-        updateOrder({commit, dispatch}, payload) {
+        updateOrder({commit, dispatch, getters}, payload) {
             commit('UPDATE_ITEMS', payload)
             dispatch('updateCost')
         },
@@ -83,7 +83,7 @@ const checkout = {
         orderItems: (state) => state.items,
         getItemQuantity: (state) => (id) => {
             return state.items[id] ? state.items[id].quantity : 0
-        }
+        },
     }
 }
 export default checkout
