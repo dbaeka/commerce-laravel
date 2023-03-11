@@ -4,7 +4,7 @@
 
         <BaseCard ref="loadingContainer">
             <h3 class="sr-only">Items in your cart</h3>
-            <BaseList class="divide-y divide-gray-200">
+            <BaseList class="divide-y divide-gray-200 overflow-y-auto max-h-96">
                 <BaseListItem class="flex py-6 px-4 sm:px-6" v-for="product in products.data"
                               :key="product.uuid">
                     <OrderItem :title="product.name"
