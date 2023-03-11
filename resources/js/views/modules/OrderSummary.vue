@@ -25,7 +25,10 @@
                                extra-class="border-t border-gray-200 pt-6"></OrderDescItem>
             </BaseDescList>
             <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
-                <BaseButton>Submit order</BaseButton>
+                <BaseButton class="disabled:opacity-50 disabled:cursor-not-allowed"
+                            :disabled="!validOrderItems || !validForm">
+                    Submit order
+                </BaseButton>
             </div>
         </BaseCard>
     </div>
@@ -55,6 +58,8 @@ const sub_total = computed(() => store.getters["checkout/subTotalCost"]);
 const total = computed(() => store.getters["checkout/totalCost"]);
 const shipping = computed(() => store.getters["checkout/shippingCost"]);
 
+const validOrderItems = computed(() => store.getters["checkout/validOrderItems"]);
+const validForm = computed(() => store.getters["checkout/validForm"])
 
 const getItemQuantity = (id) => {
     return store.getters["checkout/getItemQuantity"](id)

@@ -84,6 +84,12 @@ const checkout = {
         getItemQuantity: (state) => (id) => {
             return state.items[id] ? state.items[id].quantity : 0
         },
+        validOrderItems: (state) => {
+            return !_.every(_.values(state.items), {quantity: 0});
+        },
+        validForm: (state) => {
+            return !_.some(_.omit(state.form, 'apartment_suite'), _.isEmpty);
+        }
     }
 }
 export default checkout
