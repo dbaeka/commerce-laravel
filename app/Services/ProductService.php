@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class ProductService extends BaseYcodeService implements ProductServiceInterface
 {
-    protected string $collection_id = "products_id";
+    protected string $collection_id = 'products_id';
 
     public function getProducts(): ?array
     {
@@ -20,12 +20,12 @@ class ProductService extends BaseYcodeService implements ProductServiceInterface
         $productDTOs = [];
         foreach ($products as $product) {
             $productDTOs[] = new ProductDTO(
-                external_id: $product["_ycode_id"],
-                name: $product["Name"],
-                price: $product["Price"],
-                slug: $product["Slug"],
-                image_url: $product["Image"],
-                color: $product["Color"]
+                external_id: $product['_ycode_id'],
+                name: $product['Name'],
+                price: $product['Price'],
+                slug: $product['Slug'],
+                image_url: $product['Image'],
+                color: $product['Color']
             );
         }
         return $productDTOs;

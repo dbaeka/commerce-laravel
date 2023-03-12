@@ -47,7 +47,6 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-
         $this->reportable(function (Throwable $e) {
             //
         });
@@ -58,7 +57,6 @@ class Handler extends ExceptionHandler
             }
             return parent::render($request, $e);
         });
-
     }
 
     private function handleApiException(Request $request, Throwable|AuthenticationException|ValidationException $e): JsonResponse

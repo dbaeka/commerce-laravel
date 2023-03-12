@@ -13,7 +13,6 @@ abstract class BaseYcodeService
     /**
      * Make sure that env variables are set.
      *
-     * @return void
      */
     protected function validateEnvVariables(): void
     {
@@ -25,8 +24,8 @@ abstract class BaseYcodeService
 
     protected function getBaseRequest(): PendingRequest
     {
-        $token = config("services.ycode.token");
-        $base_url = config("services.ycode.base_url");
+        $token = config('services.ycode.token');
+        $base_url = config('services.ycode.base_url');
         return Http::withToken($token)->acceptJson()->baseUrl($base_url)->timeout(30);
     }
 
@@ -37,5 +36,4 @@ abstract class BaseYcodeService
         }
         return config('services.ycode.collections.' . $this->collection_id);
     }
-
 }

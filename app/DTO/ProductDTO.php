@@ -11,7 +11,6 @@ class ProductDTO
         public string $slug,
         public string $image_url,
         public string $color
-    )
-    {
+    ) {
     }
 }

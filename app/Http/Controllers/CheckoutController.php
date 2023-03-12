@@ -15,10 +15,6 @@ use Illuminate\Http\JsonResponse;
  */
 class CheckoutController extends Controller
 {
-
-    /**
-     * @return Application|Factory|View
-     */
     public function index(): View|Factory|Application
     {
         return view('checkout.index');
@@ -26,12 +22,11 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request, CheckoutServiceInterface $service): JsonResponse
     {
-
         $order = $service->createCheckout($request->all());
 
         return response()->json([
-            "order" => $order,
-            "success" => true,
+            'order' => $order,
+            'success' => true,
         ]);
     }
 

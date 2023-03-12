@@ -8,7 +8,6 @@ class OrderDTO
         public string $external_id,
         public string $name,
         public string $slug,
-    )
-    {
+    ) {
     }
 }
