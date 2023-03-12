@@ -34,7 +34,11 @@ NOTE:
 
 
 Requires the following env variables set, which is used by services config file in config/services.php
+
 YCODE_TOKEN
+
 YCODE_COLLECTIONS_PRODUCTS_ID
+
 YCODE_COLLECTIONS_ORDERS_ID
+
 YCODE_COLLECTIONS_ORDER_ITEMS_ID
