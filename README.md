@@ -23,3 +23,11 @@ Please do the following before starting to get setup:
 ---
 
 Use this repository as your starting point but **DO NOT** fork it. Create a private repository on GitHub for your application source code, push it and invite the username of "liamwalder" as a collaborator via "Settings > Access > Collaborators".
+
+
+NOTE:
+- In order to run job batches, a db is required, which can be set to use sqlite for fast testing of application
+- Migration is needed before hand.
+- Assumes that the list of products is only retrieved from first pagination page
+- Assumes that order can be deleted before dependent order item holds. This allows for a future job to prune order items
+- based on the design, the user will not be able to see the order page immediately when deleted
