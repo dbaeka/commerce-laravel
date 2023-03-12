@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use App\DTO\OrderDTO;
 use App\Services\OrderServiceInterface;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class OrderServiceTest extends YcodeServiceTestCase
 {
-    protected string $collection_id = "orders_id";
+    protected string $collection_id = 'orders_id';
 
     public function test_it_creates_order_returns_order_dto()
     {
@@ -37,6 +37,37 @@ class OrderServiceTest extends YcodeServiceTestCase
 
         $orderDTO = app(OrderServiceInterface::class)->createOrder($data);
         $this->assertNull($orderDTO);
+    }
+
+    public function test_it_deletes_order_returns_true()
+    {
+        $response = ["deleted" => 1];
+
+        Http::fake([
+            "$this->domain/*" => Http::response($response, 200),
+        ]);
+
+        $success = app(OrderServiceInterface::class)->deleteOrder("sample_id");
+
+        $this->assertTrue($success);
+    }
+
+    public function test_it_fails_delete_order_returns_false()
+    {
+        Http::fake([
+            "$this->domain/*" => Http::response(null, 400),
+        ]);
+
+        $success = app(OrderServiceInterface::class)->deleteOrder("sample_id");
+        $this->assertFalse($success);
+
+        $response = ["deleted" => 0];
+        Http::fake([
+            "$this->domain/*" => Http::response($response, 200),
+        ]);
+
+        $success = app(OrderServiceInterface::class)->deleteOrder("sample_id");
+        $this->assertFalse($success);
     }
 
 

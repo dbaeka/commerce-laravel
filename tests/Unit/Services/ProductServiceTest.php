@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use App\DTO\ProductDTO;
 use App\Services\ProductServiceInterface;
@@ -10,7 +10,7 @@ use Mockery;
 
 class ProductServiceTest extends YcodeServiceTestCase
 {
-    protected string $collection_id = "products_id";
+    protected string $collection_id = 'products_id';
 
     public function test_it_gets_products_from_remote_returns_product_dto()
     {
@@ -48,7 +48,7 @@ class ProductServiceTest extends YcodeServiceTestCase
         Cache::shouldReceive('get')
             ->once()
             ->with('products_list')
-            ->andReturn(json_encode($body["data"]));
+            ->andReturn(json_encode($body['data']));
 
         $productDTOs = app(ProductServiceInterface::class)->getProducts();
 

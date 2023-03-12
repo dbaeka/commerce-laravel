@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Services;
 
 use App\Exceptions\MissingEnvVariableException;
 use App\Services\ProductServiceInterface;
