@@ -53,9 +53,7 @@ class ProductService extends BaseYcodeService implements ProductServiceInterface
             Cache::set('products_list', json_encode($data), 60);
             return $data;
         } catch (HttpClientException $e) {
-            Log::error(__CLASS__ . ' ' . __FUNCTION__ . ': Error making the call: ' . $e->getMessage(), [
-                $e,
-            ]);
+            Log::error(__CLASS__ . ' ' . __FUNCTION__ . ': Error making the call: ' . $e->getMessage());
         }
         return null;
     }
