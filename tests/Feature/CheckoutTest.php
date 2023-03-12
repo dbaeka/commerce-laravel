@@ -15,7 +15,7 @@ class CheckoutTest extends TestCase
         $this->mock(CheckoutServiceInterface::class, function (MockInterface $mock) {
             $mock->shouldReceive('createCheckout')
                 ->once()
-                ->andReturn("sample_order_id");
+                ->andReturn('sample_order_id');
         });
 
         $response = $this->postJson('/create-checkout', $params);
@@ -28,7 +28,7 @@ class CheckoutTest extends TestCase
         $config = [
             'shipping_cost' => 10,
             'max_quantity' => 100,
-            'base_currency' => "GHS",
+            'base_currency' => 'GHS',
         ];
         $this->mock(CheckoutServiceInterface::class, function (MockInterface $mock) use ($config) {
             $mock->shouldReceive('defaultConfig')
@@ -82,7 +82,7 @@ class CheckoutTest extends TestCase
         ]);
 
         $response->assertJsonFragment([
-            "success" => false
+            'success' => false
         ]);
 
         $response->assertJsonValidationErrors($error_keys);
@@ -93,15 +93,15 @@ class CheckoutTest extends TestCase
         $params = file_get_contents(base_path('tests/Fixtures/Services/SampleCheckoutData.json'));
         $params = json_decode($params, true);
 
-        $params["order"]["items"] = [[]];
+        $params['order']['items'] = [[]];
 
         $response = $this->postJson('/create-checkout', $params);
 
         $error_keys = [
-            "order.items.0.name",
-            "order.items.0.slug",
-            "order.items.0.product_id",
-            "order.items.0.quantity"
+            'order.items.0.name',
+            'order.items.0.slug',
+            'order.items.0.product_id',
+            'order.items.0.quantity'
         ];
 
         $response->assertStatus(422);
@@ -113,7 +113,7 @@ class CheckoutTest extends TestCase
         ]);
 
         $response->assertJsonFragment([
-            "success" => false
+            'success' => false
         ]);
 
         $response->assertJsonValidationErrors($error_keys);
