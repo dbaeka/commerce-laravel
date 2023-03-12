@@ -25,16 +25,16 @@ class ProductTest extends TestCase
                 name: 'Product 1',
                 price: 10.00,
                 slug: 'Description 1',
-                image_url: "https://example.com/1",
-                color: "black"
+                image_url: 'https://example.com/1',
+                color: 'black'
             ),
             new ProductDTO(
                 external_id: 2,
                 name: 'Product 2',
                 price: 30.00,
                 slug: 'Description 1',
-                image_url: "https://example.com/2",
-                color: "gray"
+                image_url: 'https://example.com/2',
+                color: 'gray'
             ),
         ];
         $this->mock(ProductServiceInterface::class, function (MockInterface $mock) use ($productDTOs) {
