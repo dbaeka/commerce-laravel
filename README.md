@@ -31,3 +31,10 @@ NOTE:
 - Assumes that the list of products is only retrieved from first pagination page
 - Assumes that order can be deleted before dependent order item holds. This allows for a future job to prune order items
 - based on the design, the user will not be able to see the order page immediately when deleted
+
+
+Requires the following env variables set, which is used by services config file in config/services.php
+YCODE_TOKEN
+YCODE_COLLECTIONS_PRODUCTS_ID
+YCODE_COLLECTIONS_ORDERS_ID
+YCODE_COLLECTIONS_ORDER_ITEMS_ID
