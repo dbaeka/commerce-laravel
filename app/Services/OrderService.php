@@ -45,10 +45,27 @@ class OrderService extends BaseYcodeService implements OrderServiceInterface
                 slug: $response['Slug']
             );
         } catch (HttpClientException $e) {
-            Log::error(__CLASS__ . ' ' . __FUNCTION__ . ': Error making the call: ' . $e->getMessage(), [
-                $e,
-            ]);
+            Log::error(__CLASS__ . ' ' . __FUNCTION__ . ': Error making the call: ' . $e->getMessage());
         }
         return null;
+    }
+
+    public function deleteOrder(string $order_id): bool
+    {
+        $this->validateEnvVariables();
+        $request = $this->getBaseRequest();
+        $collection_id = $this->getCollectionId();
+        try {
+            $delete_order_endpoint = "collections/$collection_id/items/$order_id";
+            $response = $request->delete($delete_order_endpoint);
+            $response->throw();
+            $response = $response->json();
+            if ($response["deleted"]) {
+                return true;
+            }
+        } catch (HttpClientException $e) {
+            Log::error(__CLASS__ . ' ' . __FUNCTION__ . ': Error making the call: ' . $e->getMessage());
+        }
+        return false;
     }
 }
