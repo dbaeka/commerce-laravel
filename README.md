@@ -1,4 +1,4 @@
-# Conmerce
+# Commerce
 
 Ycode can be used as internal dashboard for managing orders of an e-shop. Here's an example:
 https://orders.ycodeapp.com.
